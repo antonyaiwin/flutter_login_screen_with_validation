@@ -5,7 +5,7 @@ import 'custom_text_form_field.dart';
 import 'labeled_divider.dart';
 import 'social_media_buttons.dart';
 
-class LoginForm extends StatelessWidget {
+class LoginForm extends StatefulWidget {
   const LoginForm({
     super.key,
     required this.formKey,
@@ -14,9 +14,15 @@ class LoginForm extends StatelessWidget {
   final GlobalKey<FormState> formKey;
 
   @override
+  State<LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+  bool passwordVisible = false;
+  @override
   Widget build(BuildContext context) {
     return Form(
-      key: formKey,
+      key: widget.formKey,
       child: Column(
         children: [
           CustomTextFormField(
@@ -31,9 +37,16 @@ class LoginForm extends StatelessWidget {
           const SizedBox(height: 18),
           CustomTextFormField(
             hintText: 'Password',
-            suffixIcon: const Icon(
-              Icons.visibility,
-              color: Colors.black54,
+            obscureText: !passwordVisible,
+            suffixIcon: IconButton(
+              onPressed: () {
+                passwordVisible = !passwordVisible;
+                setState(() {});
+              },
+              icon: Icon(
+                passwordVisible ? Icons.visibility : Icons.visibility_off,
+                color: Colors.black54,
+              ),
             ),
             validator: (value) {
               if (value == null || value.length < 8) {
@@ -57,7 +70,7 @@ class LoginForm extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                if (formKey.currentState!.validate()) {
+                if (widget.formKey.currentState!.validate()) {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(

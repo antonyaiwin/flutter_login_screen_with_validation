@@ -29,7 +29,6 @@ class ActionButtons extends StatelessWidget {
         const SizedBox(width: 10),
         Expanded(
           child: Container(
-            width: 40,
             height: 40,
             decoration: BoxDecoration(
                 color: Colors.purple.shade100.withOpacity(0.6),
